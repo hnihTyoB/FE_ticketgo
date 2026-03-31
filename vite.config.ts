@@ -11,16 +11,10 @@ export default defineConfig({
       "/api": {
         target: "http://localhost:9092",
         changeOrigin: true,
-        headers: {
-          'ngrok-skip-browser-warning': 'true'
-        }
       },
       "/images": {
         target: "http://localhost:9092",
         changeOrigin: true,
-        headers: {
-          'ngrok-skip-browser-warning': 'true'
-        }
       },
     },
   },

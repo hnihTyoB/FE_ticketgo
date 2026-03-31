@@ -1,8 +1,8 @@
 import type { Category } from "../types/types";
 
 export const categories: Category[] = [
-  { id: "music", label: "Nhạc sống" },
-  { id: "theatersandart", label: "Sân khấu & Nghệ thuật" },
-  { id: "sport", label: "Thể thao" },
-  { id: "other", label: "Khác" },
+  { id: "NHAC_SONG", label: "Nhạc sống" },
+  { id: "SAN_KHAU_NGHE_THUAT", label: "Sân khấu & Nghệ thuật" },
+  { id: "THE_THAO", label: "Thể thao" },
+  { id: "KHAC", label: "Khác" },
 ];

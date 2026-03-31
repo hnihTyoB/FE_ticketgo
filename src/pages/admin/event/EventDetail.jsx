@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "@/utils/axiosInterceptor";
-import { CATEGORIES } from "../../../constants/config/constant.js";
+import { CATEGORIES } from "../../../constants/data/constant.js";
 import TicketManagement from "../../../components/Layouts/admin/components/TicketManagement.jsx";
 import { formatCurrency } from "@/utils/utils";
 import { toast } from "sonner";
@@ -90,7 +90,8 @@ export default function EventDetail() {
         setNewTicketErrors(backendErrors);
       } else {
         toast.error(
-          "Lỗi khi tạo loại vé: " + (err.response?.data?.message || err.message)
+          "Lỗi khi tạo loại vé: " +
+            (err.response?.data?.message || err.message),
         );
       }
     }
@@ -119,8 +120,8 @@ export default function EventDetail() {
 
       setTicketTypes(
         ticketTypes.map((ticket) =>
-          ticket.id === ticketId ? response.data.ticketType : ticket
-        )
+          ticket.id === ticketId ? response.data.ticketType : ticket,
+        ),
       );
       setUpdateTicket({ type: "", price: "", quantity: "", description: "" });
       setUpdateTicketErrors({});
@@ -141,7 +142,7 @@ export default function EventDetail() {
       } else {
         toast.error(
           "Lỗi khi cập nhật loại vé: " +
-            (err.response?.data?.message || err.message)
+            (err.response?.data?.message || err.message),
         );
       }
       return false;
@@ -157,7 +158,7 @@ export default function EventDetail() {
       } catch (err) {
         toast.error(
           "Failed to delete ticket: " +
-            (err.response?.data?.message || err.message)
+            (err.response?.data?.message || err.message),
         );
       }
     }
@@ -357,7 +358,7 @@ export default function EventDetail() {
       } else {
         toast.error(
           "Failed to update event: " +
-            (err.response?.data?.message || err.message)
+            (err.response?.data?.message || err.message),
         );
       }
     }
@@ -520,7 +521,7 @@ export default function EventDetail() {
             {formatDateTimeDisplay(
               formData.startDate,
               formData.startTime,
-              formData.endTime
+              formData.endTime,
             ) || "Chưa có thông tin thời gian"}
           </div>
         </div>

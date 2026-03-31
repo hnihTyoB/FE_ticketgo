@@ -14,15 +14,12 @@ const Home = () => {
   const [events, setEvents] = useState<Event[]>([]);
 
   useEffect(() => {
-    const apiUrl = import.meta.env.VITE_API_BASE_URL;
-    console.log("API URL:", apiUrl);
     const fetchData = async () => {
       const url = `/api/events?page=1&limit=8&week=true&month=true`;
       try {
         const response = await axios.get(url);
 
         const result = response.data;
-        console.log("result", result);
         setEvents(result.events || []);
       } catch (e) {
         console.error("Lỗi khi fetch sự kiện cho carousel:", e);

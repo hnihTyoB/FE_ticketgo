@@ -27,7 +27,6 @@ const SelectTicket = () => {
         const response = await axios.get(`/api/events/${String(id)}`);
 
         const result = response.data;
-        console.log("event result", result);
         setEvent(result);
       } catch (err: any) {
         setError(err.message);

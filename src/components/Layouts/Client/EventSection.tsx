@@ -16,7 +16,7 @@ const EventSection = ({ title, catId }: EventSectionProps) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const url = `/api/events?page=1&limit=4${catId ? `&category=${encodeURIComponent(title)}` : ""
+      const url = `/api/events?page=1&limit=4${catId ? `&category=${encodeURIComponent(catId)}` : ""}
         }`;
       try {
         setLoading(true);
@@ -39,7 +39,7 @@ const EventSection = ({ title, catId }: EventSectionProps) => {
       <div className="flex flex-row justify-between items-center">
         <p className="text-2xl text-white font-bold mb-6">{title}</p>
         <Link
-          to={`search?category=${catId ? encodeURIComponent(title) : ""}`}
+          to={`search?category=${catId ? encodeURIComponent(catId) : ""}`}
           className="flex items-center gap-2 text-[#A6A6B0] hover:text-[#2dc275] transition-colors duration-300"
         >
           Xem thêm

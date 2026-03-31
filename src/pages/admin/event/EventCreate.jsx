@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "@/utils/axiosInterceptor";
-import { CATEGORIES } from "../../../constants/config/constant";
+import { CATEGORIES } from "../../../constants/data/constant.js";
 import { formatCurrency } from "@/utils/utils";
 import { toast } from "sonner";
 
@@ -159,8 +159,8 @@ export default function EventCreate() {
               quantity: Number(updatedData.quantity),
               description: updatedData.description,
             }
-          : ticket
-      )
+          : ticket,
+      ),
     );
     setUpdateTicket({ type: "", price: "", quantity: "", description: "" });
     setUpdateTicketErrors({});
@@ -265,7 +265,7 @@ export default function EventCreate() {
             if (ticketErr.response?.data?.errors) {
               console.log(
                 "Ticket validation errors:",
-                ticketErr.response.data.errors
+                ticketErr.response.data.errors,
               );
             }
           }
@@ -298,7 +298,7 @@ export default function EventCreate() {
       } else {
         toast.error(
           "Failed to create event: " +
-            (err.response?.data?.message || err.message)
+            (err.response?.data?.message || err.message),
         );
       }
     }
@@ -464,7 +464,7 @@ export default function EventCreate() {
             {formatDateTimeDisplay(
               formData.startDate,
               formData.startTime,
-              formData.endTime
+              formData.endTime,
             ) || "Chưa có thông tin thời gian"}
           </div>
         </div>
