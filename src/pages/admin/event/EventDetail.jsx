@@ -252,7 +252,7 @@ export default function EventDetail() {
           bannerUrl: null,
         });
         if (event.bannerUrl) {
-          setBannerPreview(`/images/event/${event.bannerUrl}`);
+          setBannerPreview(event.bannerUrl.startsWith('http') ? event.bannerUrl : `/images/event/${event.bannerUrl}`);
         }
       } catch (err) {
         console.error("Error fetching event:", err);
@@ -326,11 +326,7 @@ export default function EventDetail() {
         form.append("bannerUrl", formData.bannerUrl);
       }
 
-      await axios.put(`/api/events/${id}`, form, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axios.put(`/api/events/${id}`, form);
 
       toast.success("Cập nhật thành công!");
       navigate("/admin/events");

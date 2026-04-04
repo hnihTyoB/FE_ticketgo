@@ -23,7 +23,7 @@ const TicketCardItem: React.FC<TicketCardItemProps> = ({ ticket }) => {
   const [selectedTicketIndex, setSelectedTicketIndex] = useState(0);
   const [showFullQR, setShowFullQR] = useState(false);
 
-  
+
   const dateParts = ticket.event_date ? ticket.event_date.split(" ") : [];
   const day = dateParts[0] || "";
   let month = dateParts[1] || "";
@@ -242,7 +242,7 @@ const TicketCardItem: React.FC<TicketCardItemProps> = ({ ticket }) => {
                   {ticket.event_banner ? (
                     <div className="w-full aspect-[16/9]">
                       <img
-                        src={`/images/event/${ticket.event_banner}`}
+                        src={ticket.event_banner?.startsWith('http') ? ticket.event_banner : `/images/event/${ticket.event_banner}`}
                         alt={ticket.event_name}
                         className="w-full h-full object-cover bg-black"
                       />
@@ -317,11 +317,10 @@ const TicketCardItem: React.FC<TicketCardItemProps> = ({ ticket }) => {
                               setSelectedTicketIndex(index);
                               setShowFullQR(false);
                             }}
-                            className={`w-9 h-9 md:w-10 md:h-10 rounded-xl text-sm font-semibold transition-all border ${
-                              selectedTicketIndex === index
-                                ? 'bg-[#2dc275] text-white border-[#2dc275] shadow-md shadow-[#2dc275]/60'
-                                : 'bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100'
-                            }`}
+                            className={`w-9 h-9 md:w-10 md:h-10 rounded-xl text-sm font-semibold transition-all border ${selectedTicketIndex === index
+                              ? 'bg-[#2dc275] text-white border-[#2dc275] shadow-md shadow-[#2dc275]/60'
+                              : 'bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100'
+                              }`}
                           >
                             {index + 1}
                           </button>

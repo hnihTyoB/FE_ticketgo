@@ -213,7 +213,7 @@ const PaymentForm = () => {
     <>
       <div className="relative w-full h-62 md:h-72 lg:h-62 overflow-hidden">
         <img
-          src={`/images/event/${event?.bannerUrl}`}
+          src={event?.bannerUrl?.startsWith('http') ? event.bannerUrl : `/images/event/${event?.bannerUrl}`}
           alt={`${event?.title} banner`}
           className="absolute inset-0 w-full h-full object-cover blur-lg"
         />

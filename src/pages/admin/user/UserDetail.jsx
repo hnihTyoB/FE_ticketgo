@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "@/utils/axiosInterceptor";
-import { GENDERS } from "../../../constants/config/constant";
+import { GENDERS } from "../../../constants/data/constant";
 import { toast } from "sonner";
 
 export default function UserDetail() {
@@ -45,20 +45,12 @@ export default function UserDetail() {
           avatar: null,
         });
         if (user.avatar) {
-          let avatarPath;
-          if (user.avatar.includes("/") || user.avatar.includes("\\")) {
-            avatarPath = user.avatar;
-          } else {
-            avatarPath = `/images/user/${user.avatar}`;
-          }
-
-          console.log("Setting avatar path:", avatarPath);
-          setAvatarPreview(avatarPath);
+          setAvatarPreview(user.avatar);
         } else {
           setAvatarPreview(
             `https://ui-avatars.com/api/?name=${
               user.fullName || user.email
-            }&background=0D8ABC&color=fff&size=200`
+            }&background=0D8ABC&color=fff&size=200`,
           );
         }
       } catch (err) {
@@ -365,30 +357,11 @@ export default function UserDetail() {
                   src={avatarPreview}
                   alt="avatar preview"
                   className="h-full w-full object-cover rounded-lg"
-                  onError={(e) => {
-                    console.error("Avatar load error:", avatarPreview);
-                    console.error("Error event:", e);
-
-                    // Try alternative paths for new users
-                    const avatarFilename = avatarPreview.split("/").pop();
-                    const alternatives = [
-                      `/public/images/user/${avatarFilename}`,
-                      `/images/user/${avatarFilename}`,
-                      `/images/user/${avatarFilename}`,
-                      `/images/user/${avatarFilename}`,
-                    ];
-
-                    console.log("Trying alternatives:", alternatives);
-
-                    // Try first alternative
-                    if (alternatives[0]) {
-                      setAvatarPreview(alternatives[0]);
-                    } else {
-                      setAvatarPreview(null);
-                    }
-                  }}
-                  onLoad={() => {
-                    console.log("Avatar loaded successfully:", avatarPreview);
+                  onError={({ currentTarget }) => {
+                    currentTarget.onerror = null; // prevents looping
+                    currentTarget.src = `https://ui-avatars.com/api/?name=${
+                      formData.fullName || formData.email
+                    }&background=0D8ABC&color=fff&size=200`;
                   }}
                 />
               ) : (

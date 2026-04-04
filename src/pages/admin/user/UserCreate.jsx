@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "@/utils/axiosInterceptor";
-import { GENDERS } from "../../../constants/config/constant";
+import { GENDERS } from "../../../constants/data/constant";
 import { toast } from "sonner";
 
 export default function UserCreate() {

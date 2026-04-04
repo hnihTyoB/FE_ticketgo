@@ -69,7 +69,7 @@ export default function OrderDetail() {
                 >
                   <td className="px-6 py-4">
                     <img
-                      src={`/images/event/${item.ticketType.event.bannerUrl}`}
+                      src={item.ticketType.event.bannerUrl}
                       alt={item.ticketType.event.title}
                       className="w-35 h-20 object-cover rounded-lg"
                     />

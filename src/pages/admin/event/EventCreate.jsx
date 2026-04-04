@@ -238,16 +238,12 @@ export default function EventCreate() {
         form.append("bannerUrl", formData.bannerUrl);
       }
 
-      console.log("FormData contents:");
-      for (let [key, value] of form.entries()) {
-        console.log(key, value);
-      }
+      // console.log("FormData contents:");
+      // for (let [key, value] of form.entries()) {
+      //   console.log(key, value);
+      // }
 
-      const eventResponse = await axios.post("/api/events", form, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const eventResponse = await axios.post("/api/events", form);
 
       const eventId = eventResponse.data.event.id;
 
@@ -275,6 +271,7 @@ export default function EventCreate() {
       toast.success("Event created successfully!");
       navigate("/admin/events");
     } catch (err) {
+      console.error("Backend Error Response:", err.response?.data || err.message);
       if (err.response?.data?.errors) {
         const backendErrors = {};
         err.response.data.errors.forEach((error) => {
@@ -405,6 +402,7 @@ export default function EventCreate() {
             className={`bg-gray-50 border text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${
               errors.category ? "border-red-500" : "border-gray-300"
             }`}
+            required
           >
             <option value="">-- Select category --</option>
             {Array.isArray(categories) &&

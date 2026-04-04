@@ -228,7 +228,7 @@ const EventDetail = () => {
           {/* Right side: Banner */}
           <div className="md:w-[64%]">
             <img
-              src={`/images/event/${event.bannerUrl}`}
+              src={event?.bannerUrl?.startsWith('http') ? event.bannerUrl : `/images/event/${event?.bannerUrl}`}
               alt={event.title}
               className="w-full h-auto object-cover aspect-[16/9]"
             />

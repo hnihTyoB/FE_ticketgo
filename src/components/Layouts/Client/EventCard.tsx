@@ -15,7 +15,7 @@ const EventCard: React.FC<EventProps> = ({ event, price }) => {
       <div className="max-w-xl bg-transparent rounded-xl overflow-hidden hover:shadow-md hover:shadow-[#2dc275] transition-shadow duration-400 h-full flex flex-col">
         <div className="overflow-hidden rounded-xl mb-3 aspect-[16/9]">
           <img
-            src={`/images/event/${event.bannerUrl}`}
+            src={event?.bannerUrl?.startsWith('http') ? event.bannerUrl : `/images/event/${event?.bannerUrl}`}
             alt={event.title}
             className="w-full h-full object-cover"
           />
