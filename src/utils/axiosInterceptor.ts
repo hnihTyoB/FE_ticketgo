@@ -30,6 +30,10 @@ axios.interceptors.request.use(
         if (token && config.headers) {
             config.headers.Authorization = `Bearer ${token}`;
         }
+        // Bỏ qua trang cảnh báo ngrok (cần thiết khi dùng ngrok free)
+        if (apiBaseUrl.includes('ngrok')) {
+            config.headers['ngrok-skip-browser-warning'] = 'true';
+        }
         return config;
     },
     (error: AxiosError) => {
