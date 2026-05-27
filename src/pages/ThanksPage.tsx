@@ -81,6 +81,28 @@ const ThanksPage = () => {
     fetchOrderData();
   }, [orderId]);
 
+  const getPaymentMethodDisplay = (method: string) => {
+    const map: Record<string, string> = {
+      ZALOPAY: "ZaloPay",
+      MOMO: "Ví Momo",
+      SHOPEEPAY: "ShopeePay",
+      CARD: "Thẻ Quốc tế (Visa/Mastercard)",
+      VIETQR: "Chuyển khoản VietQR",
+    };
+    return map[method.toUpperCase()] || method;
+  };
+
+  const getCardTypeDisplay = (method: string) => {
+    const map: Record<string, string> = {
+      ZALOPAY: "Ví điện tử ZaloPay",
+      MOMO: "Ví điện tử Momo",
+      SHOPEEPAY: "Ví điện tử ShopeePay",
+      CARD: "Thẻ ghi nợ / Tín dụng",
+      VIETQR: "Tài khoản ngân hàng",
+    };
+    return map[method.toUpperCase()] || "Ví điện tử / Thẻ";
+  };
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleString("vi-VN", {
@@ -204,18 +226,18 @@ const ThanksPage = () => {
                 </span>
               </div>
 
-              {/* Bank */}
+              {/* Payment Method */}
               <div className="flex justify-between items-center">
-                <span className="text-gray-400 text-base">Ngân hàng:</span>
+                <span className="text-gray-400 text-base">Phương thức:</span>
                 <span className="text-white font-semibold text-lg">
-                  {orderData.paymentMethod === "VNPAY" ? "NCB" : "N/A"}
+                  {getPaymentMethodDisplay(orderData.paymentMethod)}
                 </span>
               </div>
 
               {/* Bank Code */}
               {orderData.paymentRef && (
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-400 text-base">Mã GD ngân hàng:</span>
+                  <span className="text-gray-400 text-base">Mã giao dịch GD:</span>
                   <span className="text-white font-mono text-lg">
                     {orderData.paymentRef}
                   </span>
@@ -224,8 +246,10 @@ const ThanksPage = () => {
 
               {/* Card Type */}
               <div className="flex justify-between items-center">
-                <span className="text-gray-400 text-base">Loại thẻ:</span>
-                <span className="text-white font-semibold text-lg">ATM</span>
+                <span className="text-gray-400 text-base">Loại thẻ/Ví:</span>
+                <span className="text-white font-semibold text-lg">
+                  {getCardTypeDisplay(orderData.paymentMethod)}
+                </span>
               </div>
 
               {/* Time */}
