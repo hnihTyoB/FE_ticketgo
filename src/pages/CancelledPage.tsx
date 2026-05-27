@@ -57,7 +57,7 @@ const CancelledPage = () => {
 
         if (response.data.success && response.data.orderDetails) {
           setOrderData(response.data.orderDetails);
-          refreshPendingOrdersCount(); 
+          refreshPendingOrdersCount();
         } else {
           throw new Error(response.data.message || "Lỗi khi lấy thông tin đơn hàng");
         }
@@ -94,6 +94,17 @@ const CancelledPage = () => {
 
   const formatCurrency = (amount: number) => {
     return amount.toLocaleString("vi-VN");
+  };
+
+  const getPaymentMethodDisplay = (method: string) => {
+    const map: Record<string, string> = {
+      ZALOPAY: "ZaloPay",
+      MOMO: "Ví Momo",
+      SHOPEEPAY: "ShopeePay",
+      CARD: "Thẻ Quốc tế (Visa/Mastercard)",
+      VIETQR: "Chuyển khoản VietQR",
+    };
+    return map[method.toUpperCase()] || method;
   };
 
   if (loading) {
@@ -219,7 +230,7 @@ const CancelledPage = () => {
               <div className="flex justify-between items-center">
                 <span className="text-gray-400 text-base">Phương thức:</span>
                 <span className="text-white font-semibold text-lg">
-                  {orderData.paymentMethod === "VNPAY" ? "VNPAY" : "N/A"}
+                  {orderData.paymentMethod ? getPaymentMethodDisplay(orderData.paymentMethod) : "N/A"}
                 </span>
               </div>
 

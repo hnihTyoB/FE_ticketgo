@@ -26,7 +26,8 @@ export const STATUS_ORDERS = {
 }
 
 export const PAYMENT_METHOD = {
-    VNPAY: 'VNPAY',
+    ZALOPAY: 'ZALOPAY',
+    MOMO: 'MOMO',
     BANKING: 'BANKING',
     CREDIT_CARD: 'CREDIT_CARD'
 }

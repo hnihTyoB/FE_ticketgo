@@ -1,8 +1,8 @@
 export const paymentMethods = [
   {
-    value: "VNPAY",
-    label: "VNPAY/Ứng dụng ngân hàng",
-    icon: "https://salt.tkbcdn.com/ts/ds/e5/6d/9a/a5262401410b7057b04114ad15b93d85.png",
+    value: "MOMO",
+    label: "Momo",
+    icon: "https://res.cloudinary.com/dwdayzugb/image/upload/v1779854573/MoMo_Logo_App.svg_dfv5tv.png",
   },
   {
     value: "VIETQR",

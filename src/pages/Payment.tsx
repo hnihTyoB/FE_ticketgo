@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import axios from "@/utils/axiosInterceptor";
+import { paymentMethods } from "@/constants/data/paymentMethods";
 
 interface TicketSelection {
   type: string;
@@ -27,7 +28,7 @@ const Payment = () => {
   const [receiverName, setReceiverName] = useState("");
   const [receiverPhone, setReceiverPhone] = useState("");
   const [receiverEmail, setReceiverEmail] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("VNPAY");
+  const [paymentMethod, setPaymentMethod] = useState(paymentMethods[0]?.value || "");
 
   const paymentData = location.state as PaymentState;
 
@@ -82,7 +83,7 @@ const Payment = () => {
         throw new Error(data.message || "Không thể tạo đơn hàng");
       }
 
-      if (paymentMethod === "VNPAY" && data.paymentUrl) {
+      if (data.paymentUrl) {
         sessionStorage.setItem(
           "pendingPayment",
           JSON.stringify({
@@ -252,59 +253,38 @@ const Payment = () => {
             Phương thức thanh toán
           </h2>
           <div className="space-y-3">
-            <div
-              onClick={() => setPaymentMethod("VNPAY")}
-              className={`border rounded-lg p-4 cursor-pointer transition-all ${paymentMethod === "VNPAY"
-                ? "border-[#2dc275] bg-[#2dc275]/10"
-                : "border-gray-700 bg-gray-800/50"
-                }`}
-            >
-              <div className="flex items-center gap-3">
-                <div className="flex-1">
-                  <p className="text-white font-semibold">VNPay</p>
-                  <p className="text-gray-400 text-sm">
-                    Thanh toán qua VNPay (Thẻ tín dụng, Thẻ ghi nợ, Internet Banking)
-                  </p>
-                </div>
-                <div
-                  className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${paymentMethod === "VNPAY"
-                    ? "border-[#2dc275]"
-                    : "border-gray-600"
-                    }`}
-                >
-                  {paymentMethod === "VNPAY" && (
-                    <div className="w-3 h-3 rounded-full bg-[#2dc275]"></div>
+            {paymentMethods.map((method) => (
+              <div
+                key={method.value}
+                onClick={() => setPaymentMethod(method.value)}
+                className={`border rounded-lg p-4 cursor-pointer transition-all ${paymentMethod === method.value
+                  ? "border-[#2dc275] bg-[#2dc275]/10"
+                  : "border-gray-700 bg-gray-800/50"
+                  }`}
+              >
+                <div className="flex items-center gap-3">
+                  {method.icon && (
+                    <img src={method.icon} alt={method.label} className="w-8 h-8 object-contain" />
                   )}
+                  <div className="flex-1">
+                    <p className="text-white font-semibold">{method.label}</p>
+                    <p className="text-gray-400 text-sm">
+                      Thanh toán nhanh bằng ví/cổng {method.label}
+                    </p>
+                  </div>
+                  <div
+                    className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${paymentMethod === method.value
+                      ? "border-[#2dc275]"
+                      : "border-gray-600"
+                      }`}
+                  >
+                    {paymentMethod === method.value && (
+                      <div className="w-3 h-3 rounded-full bg-[#2dc275]"></div>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div
-              onClick={() => setPaymentMethod("CASH")}
-              className={`border rounded-lg p-4 cursor-pointer transition-all ${paymentMethod === "CASH"
-                ? "border-[#2dc275] bg-[#2dc275]/10"
-                : "border-gray-700 bg-gray-800/50"
-                }`}
-            >
-              <div className="flex items-center gap-3">
-                <div className="flex-1">
-                  <p className="text-white font-semibold">Thanh toán tiền mặt</p>
-                  <p className="text-gray-400 text-sm">
-                    Thanh toán khi nhận vé tại sự kiện
-                  </p>
-                </div>
-                <div
-                  className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${paymentMethod === "CASH"
-                    ? "border-[#2dc275]"
-                    : "border-gray-600"
-                    }`}
-                >
-                  {paymentMethod === "CASH" && (
-                    <div className="w-3 h-3 rounded-full bg-[#2dc275]"></div>
-                  )}
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
@@ -342,7 +322,7 @@ const Payment = () => {
               Đang xử lý...
             </span>
           ) : (
-            `Xác nhận đặt vé (${paymentMethod === "VNPAY" ? "Chuyển hướng VNPay" : "Thanh toán tại sự kiện"})`
+            `Xác nhận đặt vé (Thanh toán qua ${paymentMethods.find(m => m.value === paymentMethod)?.label || "cổng thanh toán"})`
           )}
         </button>
       </div>

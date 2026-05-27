@@ -40,9 +40,13 @@ export default function HeaderAdmin({ setOpen }) {
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#2dc275] text-white shadow-md">
       <div className="flex justify-between items-center">
         <Link to="/admin" className="flex items-center gap-3 py-3 px-4">
-          <span className="text-base sm:text-xl md:text-2xl font-bold">
-            Ticket Go
-          </span>
+          <img
+            src="/ticketgo_logo.png"
+            alt="TicketGo"
+            width="60"
+            height="22"
+            className="w-[60px] sm:w-[80px] md:w-[100px] md:h-[22px]"
+          />
         </Link>
 
         <div className="flex items-center gap-4">
@@ -57,17 +61,15 @@ export default function HeaderAdmin({ setOpen }) {
             </button>
 
             <div
-              className={`absolute right-1 top-12 w-8 h-2 ${
-                isUserMenuOpen ? "block" : "hidden"
-              }`}
+              className={`absolute right-1 top-12 w-8 h-2 ${isUserMenuOpen ? "block" : "hidden"
+                }`}
             ></div>
 
             <div
-              className={`absolute right-1 top-12 w-48 origin-top-right transform rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition duration-100 ease-out ${
-                isUserMenuOpen
-                  ? "scale-100 opacity-100"
-                  : "pointer-events-none scale-95 opacity-0"
-              }`}
+              className={`absolute right-1 top-12 w-48 origin-top-right transform rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition duration-100 ease-out ${isUserMenuOpen
+                ? "scale-100 opacity-100"
+                : "pointer-events-none scale-95 opacity-0"
+                }`}
             >
               {user && (
                 <div className="py-1 text-gray-700">
