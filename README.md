@@ -2,7 +2,7 @@
 
 TicketGo là giao diện người dùng chính thức cho nền tảng đặt vé sự kiện, bao gồm trang dành cho khách hàng (Client) và bảng điều khiển quản trị (Admin Dashboard).
 
-- 🌍 **Production:** [https://fe-ticketgo.vercel.app/](https://fe-ticketgo.vercel.app/)
+- 🌍 **Production:** [https://thinher.io.vn/](https://thinher.io.vn/)
 - 🔑 **Tài khoản trải nghiệm:** `thinh@example.com` / `123456`
 
 ---
