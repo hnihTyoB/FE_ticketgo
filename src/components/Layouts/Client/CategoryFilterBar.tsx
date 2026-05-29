@@ -8,8 +8,8 @@ type CategoryFilterBarProps = {
 const CategoryFilterBar = ({ data }: CategoryFilterBarProps) => {
   const navigate = useNavigate();
 
-  const handleCategoryClick = (title: string, catId?: string) => {
-    navigate(`/search?category=${catId ? encodeURIComponent(title) : ""}`);
+  const handleCategoryClick = (catId?: string) => {
+    navigate(`/search?category=${catId ? encodeURIComponent(catId) : ""}`);
   };
 
   return (
@@ -18,7 +18,7 @@ const CategoryFilterBar = ({ data }: CategoryFilterBarProps) => {
         {data.map((da) => (
           <button
             key={da.id}
-            onClick={() => handleCategoryClick(da.label, da.id)}
+            onClick={() => handleCategoryClick(da.id)}
             className="font-medium py-6 text-white hover:text-[#2dc275] transition-colors"
           >
             {da.label}
