@@ -9,7 +9,7 @@ const CategoryFilterBar = ({ data }: CategoryFilterBarProps) => {
   const navigate = useNavigate();
 
   const handleCategoryClick = (title: string, catId?: string) => {
-    navigate(`/search?category=${catId ? encodeURIComponent(title) : ""}`);
+    navigate(`/search?category=${catId ? encodeURIComponent(catId) : ""}`);
   };
 
   return (
