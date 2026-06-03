@@ -11,11 +11,12 @@ import type { Event, MyJwtPayload } from "@/constants/types/types";
 import CartItem from "@/components/Layouts/Client/CartItem";
 import ConfirmationDialog from "./ConfirmationDialog";
 import PaymentMethods from "@/components/Layouts/Client/PaymentMethods";
+import { paymentMethods } from "@/constants/data/paymentMethods";
 
 const PaymentForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [paymentMethod, setPaymentMethod] = useState("VNPAY");
+  const [paymentMethod, setPaymentMethod] = useState(paymentMethods[0]?.value || "");
   const [event, setEvent] = useState<Event>();
   const [isLoading, setIsLoading] = useState(false);
 

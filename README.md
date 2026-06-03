@@ -2,9 +2,8 @@
 
 TicketGo là giao diện người dùng chính thức cho nền tảng đặt vé sự kiện, bao gồm trang dành cho khách hàng (Client) và bảng điều khiển quản trị (Admin Dashboard).
 
-🌍 **Production:** [https://fe-ticketgo.vercel.app/](https://fe-ticketgo.vercel.app/)
-🔑 **Tài khoản trải nghiệm:** `thinh@example.com` / `123456`
-
+- 🌍 **Production:** [https://thinher.io.vn/](https://thinher.io.vn/)
+- 🔑 **Tài khoản trải nghiệm:** `thinh@example.com` / `123456`
 
 ---
 
@@ -20,7 +19,7 @@ TicketGo là giao diện người dùng chính thức cho nền tảng đặt v�
 ## 🛠️ Tính Năng Nổi Bật
 
 - **Trải nghiệm người dùng (UI/UX)**: Giao diện hiện đại, responsive, hỗ trợ Dark/Light mode.
-- **Client Side**: Tìm kiếm sự kiện, xem chi tiết sự kiện, đặt vé, chọn ghế/chỗ, thanh toán qua VNPay, xem vé QR Code của tôi.
+- **Client Side**: Tìm kiếm sự kiện, xem chi tiết sự kiện, đặt vé, chọn ghế/chỗ, thanh toán qua ZaloPay, MoMo, xem vé QR Code của tôi.
 - **Admin Dashboard**: Quản lý sự kiện, thống kê doanh thu với Recharts, quản lý người dùng, duyệt/hủy vé.
 - **Bảo mật**: Xác thực bằng Cookie/Session (Credentials) khi gọi API, bảo vệ các Routes kín (Protected Routes).
 
@@ -54,3 +53,27 @@ Build dự án ra môi trường Production:
 ```bash
 npm run build
 ```
+
+---
+
+## 💳 Thông Tin Test Thanh Toán
+
+### 🔵 ZaloPay — Thẻ Visa / Master / JCB
+
+| Trường | Giá trị |
+|---|---|
+| Số thẻ | `4111 1111 1111 1111` |
+| Tên chủ thẻ | `NGUYEN VAN A` |
+| Ngày hết hạn | `01/25` |
+| Mã CVV | `123` |
+
+---
+
+### 🟣 MoMo — Thẻ ATM
+
+| Trường | Giá trị |
+|---|---|
+| Số thẻ | `9704 0000 0000 0018` |
+| Tên chủ thẻ | `NGUYEN VAN A` |
+| Ngày hết hạn | `03/07` |
+| OTP | `OTP` |
