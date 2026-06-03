@@ -30,7 +30,7 @@ jobs:
           push: true
           tags: hnihtyob/ticketgo-frontend:latest
           build-args: |
-            VITE_API_BASE_URL=https://api.thinher.io.vn/api
+            VITE_API_BASE_URL=https://api.thinher.io.vn
 
   deploy:
     name: Deploy to VPS
