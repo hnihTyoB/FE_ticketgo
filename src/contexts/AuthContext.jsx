@@ -6,26 +6,32 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(() => localStorage.getItem("token"));
+  const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
   const [pendingOrdersCount, setPendingOrdersCount] = useState(0);
 
   useEffect(() => {
-    if (token) {
+    const checkLoggedIn = async () => {
       try {
-        const decodedUser = jwtDecode(token);
-        setUser(decodedUser);
-        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        const response = await axios.get("/api/auth/me");
+        if (response.data.success && response.data.user) {
+          setUser(response.data.user);
+          if (response.data.token) {
+            setToken(response.data.token);
+            axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
+          }
+        }
       } catch (error) {
-        console.error("Invalid token:", error);
-        logout();
+        console.log("No active session or session expired");
+      } finally {
+        setLoading(false);
       }
-    }
-    setLoading(false);
-  }, [token]);
+    };
+    checkLoggedIn();
+  }, []);
 
   const refreshPendingOrdersCount = async () => {
-    if (!localStorage.getItem("token")) {
+    if (!user) {
       setPendingOrdersCount(0);
       return;
     }
@@ -42,9 +48,25 @@ export function AuthProvider({ children }) {
     refreshPendingOrdersCount();
   }, [user, token]);
 
-  const login = (newToken) => {
-    localStorage.setItem("token", newToken);
-    setToken(newToken);
+  const login = (userOrToken, optionalToken) => {
+    if (typeof userOrToken === "string") {
+      // Hỗ trợ cách gọi cũ: login(token)
+      try {
+        const decodedUser = jwtDecode(userOrToken);
+        setUser(decodedUser);
+        setToken(userOrToken);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${userOrToken}`;
+      } catch (error) {
+        console.error("Failed to decode token in login:", error);
+      }
+    } else {
+      // Hỗ trợ cách gọi mới: login(user, token)
+      setUser(userOrToken);
+      if (optionalToken) {
+        setToken(optionalToken);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${optionalToken}`;
+      }
+    }
   };
 
   const logout = async () => {
@@ -53,7 +75,6 @@ export function AuthProvider({ children }) {
     } catch (error) {
       console.error("Logout API error:", error);
     } finally {
-      localStorage.removeItem("token");
       setUser(null);
       setToken(null);
       delete axios.defaults.headers.common["Authorization"];
@@ -63,15 +84,24 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const updateUser = (newToken) => {
-    try {
-      const decodedUser = jwtDecode(newToken);
-      setUser(decodedUser);
-      setToken(newToken);
-      localStorage.setItem("token", newToken);
-      axios.defaults.headers.common["Authorization"] = `Bearer ${newToken}`;
-    } catch (error) {
-      console.error("Invalid token:", error);
+  const updateUser = (userOrToken, optionalToken) => {
+    if (typeof userOrToken === "string") {
+      // Hỗ trợ cách gọi cũ: updateUser(token)
+      try {
+        const decodedUser = jwtDecode(userOrToken);
+        setUser(decodedUser);
+        setToken(userOrToken);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${userOrToken}`;
+      } catch (error) {
+        console.error("Invalid token in updateUser:", error);
+      }
+    } else {
+      // Hỗ trợ cách gọi mới: updateUser(user, token)
+      setUser(userOrToken);
+      if (optionalToken) {
+        setToken(optionalToken);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${optionalToken}`;
+      }
     }
   };
 
