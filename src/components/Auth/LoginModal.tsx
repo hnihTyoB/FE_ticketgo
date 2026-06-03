@@ -54,7 +54,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post("/auth/login", {
+      const response = await axios.post("/api/auth/login", {
         emailOrPhone: formData.emailOrPhone,
         password: formData.password,
       });
