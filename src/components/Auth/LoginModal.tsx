@@ -4,7 +4,6 @@ import type { LoginCredentials } from "../../constants/types/types";
 // @ts-expect-error - JSX file without type declarations
 import { useAuth } from "../../contexts/AuthContext";
 import axios from "@/utils/axiosInterceptor";
-import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
 interface LoginModalProps {
@@ -55,19 +54,18 @@ const LoginModal: React.FC<LoginModalProps> = ({
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post("/api/auth/login", {
+      const response = await axios.post("/auth/login", {
         emailOrPhone: formData.emailOrPhone,
         password: formData.password,
       });
 
-      if (!response.data || !response.data.token) {
+      if (!response.data || !response.data.user) {
         throw new Error("Phản hồi từ server không hợp lệ");
       }
 
-      const { token } = response.data;
-      login(token);
+      const { user, token } = response.data;
+      login(user, token);
       refreshPendingOrdersCount();
-      const decodedUser = jwtDecode(token) as { role?: { name?: string } };
 
       setShowSuccess(true);
       setTimeout(() => {
@@ -76,7 +74,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
         setFormData({ emailOrPhone: "", password: "" });
         setValidationErrors({});
 
-        if (decodedUser.role?.name === "ADMIN") {
+        if (user.role?.name === "ADMIN") {
           navigate("/admin");
         } else {
           navigate("/");

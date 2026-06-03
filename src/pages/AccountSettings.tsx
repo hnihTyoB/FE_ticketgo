@@ -137,8 +137,8 @@ const AccountSettings = () => {
         formDataToSend
       );
 
-      if (response.data.token) {
-        login(response.data.token);
+      if (response.data.user) {
+        login(response.data.user, response.data.token);
         toast.success("Cập nhật thông tin thành công!");
       }
     } catch (err) {
