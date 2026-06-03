@@ -20,15 +20,11 @@ export const openAuthModal = () => {
     }
 };
 
-// Request interceptor để tự động thêm token
+// Request interceptor để tự động thêm token (ngrok skip warning)
 axios.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
-        const token = localStorage.getItem('token');
-        if (token && config.headers) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
         // Bỏ qua trang cảnh báo ngrok (cần thiết khi dùng ngrok free)
-        if (apiBaseUrl.includes('ngrok')) {
+        if (apiBaseUrl.includes('ngrok') && config.headers) {
             config.headers['ngrok-skip-browser-warning'] = 'true';
         }
         return config;

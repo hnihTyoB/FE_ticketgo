@@ -75,6 +75,7 @@ export function AuthProvider({ children }) {
     } catch (error) {
       console.error("Logout API error:", error);
     } finally {
+      localStorage.removeItem("token");
       setUser(null);
       setToken(null);
       delete axios.defaults.headers.common["Authorization"];
