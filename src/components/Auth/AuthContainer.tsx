@@ -8,10 +8,10 @@ interface AuthContainerProps {
   initialMode?: 'login' | 'register';
 }
 
-const AuthContainer: React.FC<AuthContainerProps> = ({ 
-  isOpen, 
-  onClose, 
-  initialMode = 'login' 
+const AuthContainer: React.FC<AuthContainerProps> = ({
+  isOpen,
+  onClose,
+  initialMode = 'login'
 }) => {
   const [authMode, setAuthMode] = useState<'login' | 'register'>(initialMode);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -61,8 +61,8 @@ const AuthContainer: React.FC<AuthContainerProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div 
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[70] p-4"
+    <div
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[1050] p-4"
       onClick={handleBackdropClick}
       role="dialog"
       aria-modal="true"
