@@ -88,7 +88,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         err.response.data.errors.forEach((error: any) => {
           if (error.path === "emailOrPhone")
-            backendErrors.username = error.message;
+            backendErrors.emailOrPhone = error.message;
           else if (error.path === "password")
             backendErrors.password = error.message;
         });
@@ -167,7 +167,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
               onChange={handleInputChange}
               placeholder="Nhập email hoặc số điện thoại"
               autoComplete="username"
-              className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-colors ${validationErrors.username
+              className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-colors ${validationErrors.emailOrPhone
                 ? "border-red-500 focus:ring-red-500"
                 : "border-gray-300 focus:ring-green-500 focus:border-transparent"
                 }`}
